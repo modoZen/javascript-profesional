@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototype</title>
+</head>
+<body>
+    <a href="./index.html">Go back</a>
+    <p><em>Abre la consola</em></p>
+
+
+    <script>
+        // Un objeto comun y corriente
+        // const naruto = {
+        //     name: 'Naruto'
+        // };
+        // naruto.saludar = function () {
+        //     console.info(`Hola soy ${this.name}`)
+        // };
+        // naruto.saludar();
+
+        // const sasuke = {
+        //     name: 'Sasuke'
+        // };
+        // sasuke.saludar = function () {
+        //     console.info(`Hola soy ${this.name}`)
+        // };
+        // sasuke.saludar();
+
+        // Seamos un poco más eficientes
+        // function Hero(name) {
+        //     const hero = {
+        //         name: name
+        //     }
+        //     hero.saludar = function () {
+        //         console.info(`Hola soy ${this.name}`)
+        //     };
+        //     return hero;
+        // }
+        // const naruto = Hero('Naruto');
+        // naruto.saludar();
+        // const sasuke = Hero('Sasuke');
+        // sasuke.saludar();
+
+        // Aun podemos mejorar mas y evitar tener que crear la misma funcion 
+
+        // const heroMethods = {
+        //     saludar:function () {
+        //         console.info(`Me llamo ${this.name}`)
+        //     }
+        // }
+
+        // function Hero(name) {
+        //     const hero = {
+        //         name: name
+        //     }
+        //     hero.saludar = heroMethods.saludar;
+        //     return hero;
+        // }
+        // const naruto = Hero('Naruto');
+        // naruto.saludar();
+        // const sasuke = Hero('Sasuke');
+        // sasuke.saludar();
+
+        // Object.create
+
+        // const heroMethods = {
+        //     saludar:function () {
+        //         console.info(`Soy un ninja ${this.name}`)
+        //     }
+        // }
+
+        // function Hero(name) {
+        //     const hero = Object.create(heroMethods);
+        //     hero.name = name;
+
+        //     return hero;
+        // }
+        // const naruto = Hero('Naruto');
+        // naruto.saludar();
+        // const sasuke = Hero('Sasuke');
+        // sasuke.saludar();
+
+        // Los metodods de hero dentro Hero
+
+        // function Hero(name) {
+        //     const hero = Object.create(Hero.prototype);
+        //     hero.name = name;
+
+        //     return hero;
+        // }
+        // Hero.prototype.saludar = function () {
+        //     console.info(`Soy un ninja de elite ${this.name}`)
+        // }
+        // const naruto = Hero('Naruto');
+        // naruto.saludar();
+        // const sasuke = Hero('Sasuke');
+        // sasuke.saludar();
+
+        // new es un atajo (azucar sintactica) para llevar el Hero.prototype al objeto
+
+        // function Hero(name) {
+        //     // const this = Object.create(Hero.prototype);
+        //     // se realiza de forma automatica con new
+        //     // crea al objero a apartir del prototype del constructor
+        //     this.name = name;
+
+        //     // return this;
+        // }
+        // Hero.prototype.saludar = function () {
+        //     console.info(`Soy un hokage ${this.name}`)
+        // }
+        // const naruto = new Hero('Naruto');
+        // naruto.saludar();
+        // const sasuke = new Hero('Sasuke');
+        // sasuke.saludar();
+
+        // class
+        class Hero{
+            constructor(name){
+                this.name = name
+            }
+
+            saludar(){
+                console.info(`Soy un jinjuriki ${this.name}`)
+            }
+        }
+
+        const naruto = new Hero('Naruto');
+        naruto.saludar();
+
+    </script>
+</body>
+</html>
