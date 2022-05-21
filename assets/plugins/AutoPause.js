@@ -1,7 +1,10 @@
 class AutoPause{
     constructor(){
         this.handlerIntersection = this.handlerIntersection.bind(this);
+        this.handlerVisibilityChange = this.handlerVisibilityChange.bind(this);
+
     }
+
     run(player){
         this.player = player;
         const observer = new IntersectionObserver(this.handlerIntersection, {
@@ -9,6 +12,8 @@ class AutoPause{
         })
 
         observer.observe(player.media);
+
+        document.addEventListener('visibilitychange', this.handlerVisibilityChange)
     }
 
     handlerIntersection(entries){
@@ -16,6 +21,12 @@ class AutoPause{
         if(entry.isIntersecting) this.player.play();
         else this.player.pause();
     }
+
+    handlerVisibilityChange(){
+        const isVisible = document.visibilityState === 'visible';
+        isVisible?this.player.play():this.player.pause()
+    }
+
 }
 
 export default AutoPause;
