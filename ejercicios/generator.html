@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generators</title>
+</head>
+<body>
+    <a href="/ejercicios/">Go back</a>
+    <p><em>Abre la consola</em></p>
+
+    <script>
+        // Los generadores son funciones de las que se puede salir y volver a entrar.
+        // Su contexto (asociación de variables) será conservado entre las reentradas.
+        // Cada vez que llamamos next, la ejecución del generador va a continuar hasta el proximo yield
+        function* simpleGenerator() {
+            console.info('GENERATOR START');
+            yield 1;
+            yield 2;
+            yield 3;
+            console.info('GENERATOR END');
+        }
+
+        const generador = simpleGenerator();
+        // Podemos hacer generadores infinitos.
+
+        function* idMaker() {
+            let id = 1;
+            while(true){
+                yield id;
+                id++
+            }
+        }
+
+        // Cuando llamamos next también podemos pasar valores que la función recibe.
+        function* idMakerWithReset() {
+            let id = 1;
+            let reset;
+            while(true){
+                reset = yield id;
+                if(reset) id = 1;
+                else id++
+            }
+        }
+        // Ahora hagamos un ejemplo un poco más complejo: la secuencia fibonacci
+        function* fibonacci() {
+            let a = 1;
+            yield a;
+            let b = 1;
+            yield b;
+            while(true){
+                const nextNumber = a+b;
+                a = b;
+                b = nextNumber;
+                yield nextNumber
+            }
+        }
+
+        // Generadores anidados
+        function* oneGenerator(){
+            yield 1
+            yield* anotherGenerator() //delega a la funcion anotherGenerator()
+            yield 2
+        }
+        function* anotherGenerator(){
+            yield 5
+            yield 10
+            yield 15
+        }
+
+        // fibonacci 2.0
+        function*  fibonacci2(){
+            //DECLARACION DE VARIABLES
+            let a = 0, b = 1, nextNumber = 0 , count = 0, n = 0;
+            while(true){
+                // n = AL PARAMETRO QUE INGRESA EL USUARIO 
+                n = yield nextNumber
+                // SI n = 0 ARRANCA CON LOS VALOREE POR DEFAULT A EXCEPCION DE count
+                if(n == 0){
+                    a = 0; b = 1; nextNumber = 0
+                    count = 1
+                }
+                // SI NO, ENTONCES SI: n < count
+                else if(n < count){
+                    console.log('Arranca la sucesión desde 0');            
+                    a = 0
+                    b = 1
+                    for (let i = 0; i < n; i++) { 
+                        nextNumber = a + b
+                        a = b
+                        b = nextNumber
+                    }
+                    count = n
+                }
+                // SI NO, ENTONCES SI: n>= count // AVANZA EL NUMERO DE VECES EN LA SUCESION QUE HAGA FALTA PARA ALCANZAR LA PEDIDA
+                // ES DECIR, NO ARRANCAR DESDE 0 LA SUCESION SINO ARRANCAR DESDE DONDE QUEDASTE
+                // RECORDAR QUE EL RESULTADO PUEDE LLEGAR A SER UN NUMERO MUY GRANDE
+                else if(n >= count){
+                    console.log(`Avanza ${n - count} sucesiones`);
+                    for (let i = count; i < n; i++) { 
+                        nextNumber = a + b
+                        a = b
+                        b = nextNumber
+                    }
+                    count = n            
+                }
+                // SI NO, ENTONCES:  // EL CASO EN  QUE gen.next()
+                else{
+                    nextNumber = a + b
+                    a = b
+                    b = nextNumber
+                    count ++
+                }         
+            }
+        }
+
+    </script>
+</body>
+</html>
