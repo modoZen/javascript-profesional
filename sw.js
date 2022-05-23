@@ -27,14 +27,14 @@ self.addEventListener('fetch', event=>{
 async function precache() {
     const cache = await caches.open(VERSION) // abrimos el cache
     return cache.addAll([ // añademe estes archivos
-        '/',
-        '/index.html',
-        '/assets/index.js',
-        '/assets/MediaPlayer.js',
-        '/assets/plugins/AutoPlay.js',
-        '/assets/plugins/AutoPause.js',
-        '/assets/index.css',
-        '/assets/BigBuckBunny.mp4',
+        // '/',
+        // '/index.html',
+        // '/assets/index.js',
+        // '/assets/MediaPlayer.js',
+        // '/assets/plugins/AutoPlay.js',
+        // '/assets/plugins/AutoPause.js',
+        // '/assets/index.css',
+        // '/assets/BigBuckBunny.mp4',
     ]) // return porque arriba tenemos una promesa esperando respuesta
 }
 
