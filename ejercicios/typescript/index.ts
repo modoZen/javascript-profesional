@@ -99,9 +99,9 @@ enum Colorcito{
 }
 
 interface Rectangulo{
-    alto:number,
-    ancho: number,
-    color?:Colorcito
+    alto:number;
+    ancho: number;
+    color?:Colorcito;
 }
 
 let rect:Rectangulo = {
